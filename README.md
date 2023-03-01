@@ -22,7 +22,7 @@ wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-fd_templa
 wget https://raw.githubusercontent.com/johann8/bacularis/master/bconsole_template.conf
 ```
 - To create configuration for Bacula `Linux` client on server side, you need to pass two parameters to script 1, namely `client name` and `IP address`.
-- To create configuration for Bacula `Linux` client on server side, you need to pass only one parametes to script 2, namely `client name`.
+- To create configuration for Bacula `Linux` client on client side, you need to pass only one parametes to script 2, namely `client name`.
 - The MD5 Bacula client password is automatically created by the script.
 - The `bacula-mon` password you can read out from server configuration. After that you can insert the password into the script: `2_create_new_bacula_client_linux--client_side_template.sh`. The variable is called `DIRECTOR_CONSOLE_MONITOR_PASSWORD`. You must use single quote marks. As an example:\
 `DIRECTOR_CONSOLE_MONITOR_PASSWORD='MySuperPassword'`
@@ -34,7 +34,7 @@ vim 2_create_new_bacula_client_linux--client_side_template.sh            # And i
 ```
 - When everything is ready, run the scripts. As an example:
 ```bash
-./1_create_new_bacula_client_linux--server_side_template.sh -n srv01 -ip 182.168.155.5
+./1_create_new_bacula_client_linux--server_side_template.sh -n srv01 -ip 192.168.155.5
 ./2_create_new_bacula_client_linux--client_side_template.sh -n srv01
 ```
 - The created files can be found in the folder `config_files`. The content of the file `bacula-dir_srv01.conf` is added to the configuration file `bacula-dir.conf` of the `bacula server`
@@ -62,4 +62,35 @@ systemctl restart bacula-fd.service
 wget https://raw.githubusercontent.com/johann8/bacularis/master/3_create_new_bacula_client_windows--server_side_template.sh
 wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-dir_template_windows.conf
 ```
-Is completed ...
+- To create configuration for Bacula `Windows` client on server side, you need to pass two parameters to script 3, namely `client name` and `IP address`.
+- The MD5 Bacula client password is automatically created by the script.
+- When everything is ready, run the scripts. As an example:
+```bash
+./3_create_new_bacula_client_windows--server_side_template.sh -n win-srv01 -ip 192.168.155.8
+```
+- The created files can be found in the folder `config_files`. The content of the file `bacula-dir_win-srv01.conf` is added to the configuration file `bacula-dir.conf` of the `bacula server`
+
+```bash
+cat config_files/bacula-dir_win-srv01.conf >> /opt/bacularis/data/bacula/config/etc/bacula/bacula-dir.conf
+cd /opt/bacularis && docker-compose exec bacularis bash
+bconsole
+reload
+```
+- The MD5 bacula client password you can read out from config file `bacula-dir_win-srv01.conf`
+
+```bash
+cat config_files/bacula-dir_pc-vm01.conf | sed -n '/Client {/,+4p' | grep -w Password |cut -f 2 -d '"'
+```
+
+As a result comes something like this: `[md5]607e60c2c1f4f859679fbe9d742b0c59`
+
+- 
+```bash
+ip addr show $(ip route | awk '/default/ {print $5}') |grep -w inet | awk '/inet/ {print $2}' | cut -d'/' -f1
+```
+As a result comes something like this: `192.168.155.15`
+
+- Download [Bacula](https://www.bacula.org/) windows binaries from [Bacula website](https://www.bacula.org/binary-download-center/)
+- Run bacula installation
+- Fill in the data as in the picture
+- Finish the installation
