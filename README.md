@@ -21,14 +21,14 @@ wget https://raw.githubusercontent.com/johann8/bacularis/master/bconsole_templat
 - To create configuration for Bacula `Linux` client on server side, you need to pass only one parametes to script 2, namely `client name`.
 - The MD5 Bacula client password is automatically created by the script.
 - The `bacula-mon` password you can read out from server configuration. After that you can insert the password into the script: `2_create_new_bacula_client_linux--client_side_template.sh`. The variable is called `DIRECTOR_CONSOLE_MONITOR_PASSWORD`. You must use single quote marks. As an example:\
-`DIRECTOR_CONSOLE_MONITOR_PASSWORD='MySuperPassword'`\
-An example: login to the server where docker container is running with bacula server. Pass the path to the configuration file and execute the commands below
+`DIRECTOR_CONSOLE_MONITOR_PASSWORD='MySuperPassword'`
+- An example: login to the server where docker container is running with bacula server. Pass the path to the configuration file and execute the commands below
 ```bash
 BACULA_SERVER_CONFIG_DIR_DOCKER=/opt/bacularis/data/bacula/config/etc/bacula/bacula-dir.conf
 cat ${BACULA_SERVER_CONFIG_DIR_DOCKER} |sed -n '/bacula-mon/,+1p' |grep Password |cut -f 2 -d '"'
 vim 2_create_new_bacula_client_linux--client_side_template.sh            # And insert "bacula-mon" password    
 ```
-When everything is ready, run the scripts. As an example:
+- When everything is ready, run the scripts. As an example:
 ```bash
 ./1_create_new_bacula_client_linux--server_side_template.sh -n srv01 -ip 182.168.155.5
 ./2_create_new_bacula_client_linux--client_side_template.sh -n srv01
@@ -39,6 +39,16 @@ cat config_files/bacula-dir_srv01.conf >> /opt/bacularis/data/bacula/config/etc/
 cd /opt/bacularis && docker-compose exec bacularis bash
 bconsole
 reload
+```
+- The created files `bacula-fd_srv01.conf` and `bconsole_srv01.conf` must be copied to client by folder `/opt/bacula/etc`
+```bash
+cd /opt/bacula/etc
+# create backup of old files
+mv bacula-fd.conf bacula-fd.conf.back
+mv bconsole.conf bconsole.conf.back
+mv bacula-fd_srv01.conf bacula-fd.conf
+mv bconsole_srv01.conf bconsole.conf
+systemctl restart bacula-fd.service
 ```
 
 - For Windows
