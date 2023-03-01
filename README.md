@@ -32,7 +32,7 @@ wget https://raw.githubusercontent.com/johann8/bacularis/master/bconsole_templat
 - The MD5 Bacula client password is automatically created by the script.
 - The `bacula-mon` password you can read out from server configuration. After that you can insert the password into the script: `2_create_new_bacula_client_linux--client_side_template.sh`. The variable is called `DIRECTOR_CONSOLE_MONITOR_PASSWORD`. You must use single quote marks. Here is an example:\
 `DIRECTOR_CONSOLE_MONITOR_PASSWORD='MySuperPassword'`
-- An example: login to the server where docker container is running with bacula server. Pass the path to the configuration file and execute the commands below
+- An example: login to the server where docker container is running with bacula server. Adjust the path of configuration file and execute the commands below
 
 ```bash
 BACULA_SERVER_CONFIG_DIR_DOCKER=/opt/bacularis/data/bacula/config/etc/bacula/bacula-dir.conf
