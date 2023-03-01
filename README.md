@@ -84,7 +84,7 @@ cat config_files/bacula-dir_pc-vm01.conf | sed -n '/Client {/,+4p' | grep -w Pas
 
 As a result comes something like this: `[md5]607e60c2c1f4f859679fbe9d742b0c59`
 
-- 
+- You need the ip address of docker host. This ip address is specified as `bacula-dir` ip address
 ```bash
 ip addr show $(ip route | awk '/default/ {print $5}') |grep -w inet | awk '/inet/ {print $2}' | cut -d'/' -f1
 ```
