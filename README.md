@@ -94,4 +94,5 @@ As a result comes something like this: `192.168.155.15`
 - Download [Bacula](https://www.bacula.org/) windows binaries from [Bacula website](https://www.bacula.org/binary-download-center/)
 - Run bacula installation
 - Fill in the data as in the picture
+![Bacula_Windows_Install](https://raw.githubusercontent.com/johann8/bacularis/master/docs/assets/screenshots/bacula_win_install.png)
 - Finish the installation
