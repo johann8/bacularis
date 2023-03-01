@@ -1,0 +1,15 @@
+Defaults:nginx !requiretty
+nginx ALL = (root) NOPASSWD: /usr/sbin/bconsole
+nginx ALL = (root) NOPASSWD: /usr/sbin/bdirjson
+nginx ALL = (root) NOPASSWD: /usr/sbin/bsdjson
+nginx ALL = (root) NOPASSWD: /usr/sbin/bfdjson
+nginx ALL = (root) NOPASSWD: /usr/sbin/bbconsjson
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-dir start
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-dir stop
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-dir restart
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-sd start
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-sd stop
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-sd restart
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-fd start
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-fd stop
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-fd restart

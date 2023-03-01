@@ -1,0 +1,5 @@
+Defaults:nginx !requiretty
+nginx ALL = (root) NOPASSWD: /usr/sbin/bsdjson
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-sd start
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-sd stop
+nginx ALL = (root) NOPASSWD: /etc/bacula/scripts/bacula-ctl-sd restart
