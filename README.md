@@ -4,11 +4,11 @@
 [Bacularis](https://github.com/bacularis/bacularis-app) is a web interface to configure, manage and monitor Bacula backup environment. It is a complete solution for setting up backup jobs, doing restore data, managing tape or disk volumes in local and remote storage, work with backup clients, and doing daily administrative work with backup.
 
 ## Bacula linux binaries
-Bacula Linux Binaries Deb / Rpm can be found on [Bacula website](https://www.bacula.org/bacula-binary-package-download/)
+[Bacula](https://www.bacula.org/) linux binaries Deb / Rpm can be found on [Bacula website](https://www.bacula.org/bacula-binary-package-download/)
 To access these binaries, you will need an access key, which will be provided when you complete a simple registration.
 
 ## Bacula windows binaries
-Bacula Windows Binaries can be found on [Bacula website](https://www.bacula.org/binary-download-center/)
+[Bacula](https://www.bacula.org/)  windows binaries can be found on [Bacula website](https://www.bacula.org/binary-download-center/)
 
 ## Create bacula client config files
 You can create client config files automatically. For this you can find some scripts and templates on the repo. You load the files into a directory and start the bash scripts. Run "scriptname -h / --help" to see help.
