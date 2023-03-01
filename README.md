@@ -17,14 +17,14 @@ For example: login to the server where docker container is running with bacula s
 ```bash
 BACULA_SERVER_CONFIG_DIR_DOCKER=/opt/bacularis/data/bacula/config/etc/bacula/bacula-dir.conf
 cat ${BACULA_SERVER_CONFIG_DIR_DOCKER} |sed -n '/bacula-mon/,+1p' |grep Password |cut -f 2 -d '"'
-vim 2_create_new_bacula_client_linux--client_side_template.sh            # And insert `bacula-mon` password    
+vim 2_create_new_bacula_client_linux--client_side_template.sh            # And insert "bacula-mon" password    
 ```
 When everything is ready, run the scripts. As an example:
 ```bash
 ./1_create_new_bacula_client_linux--server_side_template.sh -n srv01 -ip 182.168.155.5
 ./2_create_new_bacula_client_linux--client_side_template.sh -n srv01
 ```
-- The created files can be found in the folder `config_files`. The content of the file `bacula-dir_srv01.conf` is added to the configuration file of the `bacula server` `bacula-dir.conf`
+- The created files can be found in the folder `config_files`. The content of the file `bacula-dir_srv01.conf` is added to the configuration file `bacula-dir.conf` of the `bacula server`
 ```bash
 cat config_files/bacula-dir_srv01.conf >> /opt/bacularis/data/bacula/config/etc/bacula/bacula-dir.conf
 cd /opt/bacularis && docker-compose exec bacularis bash
