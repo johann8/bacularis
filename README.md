@@ -11,11 +11,12 @@ To access these binaries, you will need an access key, which will be provided wh
 [Bacula](https://www.bacula.org/)  windows binaries can be found on [Bacula website](https://www.bacula.org/binary-download-center/)
 
 ## Create bacula client config files
-You can create client config files automatically. For this you can find some scripts and templates on the repo. You load the files into a directory and start the bash scripts. Run "scriptname -h / --help" to see help.
+You can create client config files automatically. For this you can find some scripts and templates on the repo. You load the files into a directory and start the bash scripts. Run `scriptname -h / --help` to see help.
+
+### For Linux
 
 ---
 
-### For Linux
 ```bash
 wget https://raw.githubusercontent.com/johann8/bacularis/master/1_create_new_bacula_client_linux--server_side_template.sh
 wget https://raw.githubusercontent.com/johann8/bacularis/master/2_create_new_bacula_client_linux--client_side_template.sh
@@ -58,9 +59,10 @@ mv bacula-fd_srv01.conf bacula-fd.conf
 mv bconsole_srv01.conf bconsole.conf
 systemctl restart bacula-fd.service
 ```
+### For Windows
+
 ---
 
-### For Windows
 ```bash
 wget https://raw.githubusercontent.com/johann8/bacularis/master/3_create_new_bacula_client_windows--server_side_template.sh
 wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-dir_template_windows.conf
