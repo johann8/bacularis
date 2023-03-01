@@ -62,4 +62,4 @@ systemctl restart bacula-fd.service
 wget https://raw.githubusercontent.com/johann8/bacularis/master/3_create_new_bacula_client_windows--server_side_template.sh
 wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-dir_template_windows.conf
 ```
-
+Is completed ...
