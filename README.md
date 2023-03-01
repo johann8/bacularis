@@ -12,7 +12,7 @@ You can create client config files automatically. For this you can find some scr
 - To create configuration for Bacula `Linux` client on server side, you need to pass two parameters to script 1, namely `client name` and `IP address`.
 - To create configuration for Bacula `Linux` client on server side, you need to pass only one parametes to script 2, namely `client name`.
 - The MD5 Bacula client password is automatically created by the script.
-- The `bacula-mon` password you can read out from server configuration. After that you can insert the password into the script: 2_create_new_bacula_client_linux--client_side_template.sh. The variable is called: DIRECTOR_CONSOLE_MONITOR_PASSWORD. You must use single quote marks. As an example: DIRECTOR_CONSOLE_MONITOR_PASSWORD='MySuperPassword'
+- The `bacula-mon` password you can read out from server configuration. After that you can insert the password into the script: 2_create_new_bacula_client_linux--client_side_template.sh. The variable is called: DIRECTOR_CONSOLE_MONITOR_PASSWORD. You must use single quote marks. As an example: DIRECTOR_CONSOLE_MONITOR_PASSWORD='MySuperPassword'\
 For example: login to the server where docker container is running with bacula server. Pass the path to the configuration file and execute the commands below
 ```bash
 BACULA_SERVER_CONFIG_DIR_DOCKER=/opt/bacularis/data/bacula/config/etc/bacula/bacula-dir.conf
