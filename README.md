@@ -9,8 +9,9 @@ To access these binaries, you will need an access key, which will be provided wh
 ## Bacula windows binaries
 Bacula Windows Binaries can be found on [Bacula website](https://www.bacula.org/binary-download-center/)
 
-# Create bacula client config files
+## Create bacula client config files
 You can create client config files automatically. For this you can find some scripts and templates on the repo. You load the files into a directory and start the bash scripts. Run "scriptname -h / --help" to see help.
+
 ### For Linux
 ```bash
 wget https://raw.githubusercontent.com/johann8/bacularis/master/1_create_new_bacula_client_linux--server_side_template.sh
