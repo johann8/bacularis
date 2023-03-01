@@ -53,14 +53,9 @@ mv bconsole_srv01.conf bconsole.conf
 systemctl restart bacula-fd.service
 ```
 
-- For Windows
+# For Windows
 ```bash
 wget https://raw.githubusercontent.com/johann8/bacularis/master/3_create_new_bacula_client_windows--server_side_template.sh
 wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-dir_template_windows.conf
-```
-- you can read out bacula-mon password. After that you can insert the password into the script: 2_create_new_bacula_client_linux--client_side_template.sh. The variable is called: DIRECTOR_CONSOLE_MONITOR_PASSWORD. You must use single quote marks. As an example: DIRECTOR_CONSOLE_MONITOR_PASSWORD='MySuperPassword'
-```bash
-BACULA_SERVER_CONFIG_DIR_DOCKER=/opt/bacularis/data/bacula/config/etc/bacula/bacula-dir.conf
-cat ${BACULA_SERVER_CONFIG_DIR_DOCKER} |sed -n '/bacula-mon/,+1p' |grep Password |cut -f 2 -d '"'
 ```
 
