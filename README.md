@@ -46,6 +46,8 @@ cd /opt/bacula/etc
 # create backup of old files
 mv bacula-fd.conf bacula-fd.conf.back
 mv bconsole.conf bconsole.conf.back
+
+# rename files
 mv bacula-fd_srv01.conf bacula-fd.conf
 mv bconsole_srv01.conf bconsole.conf
 systemctl restart bacula-fd.service
