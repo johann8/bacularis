@@ -83,7 +83,7 @@ For the installation of Bacula Windows client you need the name of Bacula Direct
 - You can read out MD5 bacula client password from created config file `bacula-dir_win-srv01.conf`
 
 ```bash
-cat config_files/bacula-dir_pc-vm01.conf | sed -n '/Client {/,+4p' | grep -w Password |cut -f 2 -d '"'
+cat config_files/bacula-dir_win-srv01.conf | sed -n '/Client {/,+4p' | grep -w Password |cut -f 2 -d '"'
 ```
 
 As a result comes something like this: `[md5]607e60c2c1f4f859679fbe9d742b0c59`
