@@ -1,6 +1,7 @@
 # Bacularis and Bacula community edition
 
-## Bacularis APP
+## Bacularis - The Bacula web interface
+[Bacularis](https://github.com/bacularis/bacularis-app) is a web interface to configure, manage and monitor Bacula backup environment. It is a complete solution for setting up backup jobs, doing restore data, managing tape or disk volumes in local and remote storage, work with backup clients, and doing daily administrative work with backup.
 
 ## Bacula linux binaries
 Bacula Linux Binaries Deb / Rpm can be found on [Bacula website](https://www.bacula.org/bacula-binary-package-download/)
