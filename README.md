@@ -9,6 +9,14 @@ Bacula Windows Binaries can be found on [Bacula website](https://www.bacula.org/
 
 # Create bacula client config files
 You can create client config files automatically. For this you can find some scripts and templates on the repo. You load the files into a directory and start the bash scripts. Run "scriptname -h / --help" to see help.
+- For Linux
+```bash
+wget https://raw.githubusercontent.com/johann8/bacularis/master/1_create_new_bacula_client_linux--server_side_template.sh
+wget https://raw.githubusercontent.com/johann8/bacularis/master/2_create_new_bacula_client_linux--client_side_template.sh
+wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-dir_template.conf
+wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-fd_template.conf
+wget https://raw.githubusercontent.com/johann8/bacularis/master/bconsole_template.conf
+```
 - To create configuration for Bacula `Linux` client on server side, you need to pass two parameters to script 1, namely `client name` and `IP address`.
 - To create configuration for Bacula `Linux` client on server side, you need to pass only one parametes to script 2, namely `client name`.
 - The MD5 Bacula client password is automatically created by the script.
@@ -32,16 +40,6 @@ bconsole
 reload
 ```
 
-
-
-- For Linux
-```bash
-wget https://raw.githubusercontent.com/johann8/bacularis/master/1_create_new_bacula_client_linux--server_side_template.sh 
-wget https://raw.githubusercontent.com/johann8/bacularis/master/2_create_new_bacula_client_linux--client_side_template.sh
-wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-dir_template.conf
-wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-fd_template.conf
-wget https://raw.githubusercontent.com/johann8/bacularis/master/bconsole_template.conf
-```
 - For Windows
 ```bash
 wget https://raw.githubusercontent.com/johann8/bacularis/master/3_create_new_bacula_client_windows--server_side_template.sh
