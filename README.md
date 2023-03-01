@@ -78,7 +78,7 @@ reload
 ```
 ### Bacula Windows client install
 
-For the installation of Bacula Windows client you need the name of Bacula Director `bacula-dir`, the MD5 password and the ip address of docker host.
+For the installation of Bacula Windows client you need the name of Bacula Director `bacula-dir`, MD5 password of bacula windows client and the ip address of docker host.
 
 - You can read out MD5 bacula client password from created config file `bacula-dir_win-srv01.conf`
 
