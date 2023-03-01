@@ -1,11 +1,11 @@
-# Bacula community edition
+# Bacularis and Bacula community edition
 
 # Linux
-Bacula Linux Binaries Deb / Rpm can be found on [Bacula websitei] (https://www.bacula.org/bacula-binary-package-download/)
+Bacula Linux Binaries Deb / Rpm can be found on [Bacula website](https://www.bacula.org/bacula-binary-package-download/)
 To access these binaries, you will need an access key, which will be provided when you complete a simple registration.
 
 # Windows
-Bacula Windows Binaries can be found on [Bacula websitei] (https://www.bacula.org/binary-download-center/)
+Bacula Windows Binaries can be found on [Bacula website](https://www.bacula.org/binary-download-center/)
 
 # Create bacula client config files
 You can create client config files automatically. For this you can find some scripts and templates on the repo. You load the files into a directory and start the bash scripts.
