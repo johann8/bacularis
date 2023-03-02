@@ -102,7 +102,7 @@ cat config_files/bacula-dir_win-srv01.conf | sed -n '/Client {/,+4p' | grep -w P
 
 As a result comes something like this: `[md5]607e60c2c1f4f859679fbe9d742b0c59`
 
-- You need the ip address of docker host. This ip address is specified as `bacula-dir` ip address. You can execute the following command to find out the ip address:
+- You need the ip address of `docker host`. This ip address is specified as `bacula-dir` ip address. You can execute the following command on `docker host` to find out the ip address:
 
 ```bash
 ip addr show $(ip route | awk '/default/ {print $5}') |grep -w inet | awk '/inet/ {print $2}' | cut -d'/' -f1
