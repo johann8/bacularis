@@ -18,6 +18,7 @@ You can create client config files automatically. For this you can find some scr
 ### For Linux
 
 ---
+- Download files below in a directory
 
 ```bash
 wget https://raw.githubusercontent.com/johann8/bacularis/master/1_create_new_bacula_client_linux--server_side_template.sh
@@ -68,6 +69,7 @@ systemctl restart bacula-fd.service
 ### For Windows
 
 ---
+- Download files below in a directory
 
 ```bash
 wget https://raw.githubusercontent.com/johann8/bacularis/master/3_create_new_bacula_client_windows--server_side_template.sh
