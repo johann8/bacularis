@@ -39,7 +39,7 @@ BACULA_SERVER_CONFIG_DIR_DOCKER=/opt/bacularis/data/bacula/config/etc/bacula/bac
 cat ${BACULA_SERVER_CONFIG_DIR_DOCKER} |sed -n '/bacula-mon/,+1p' |grep Password |cut -f 2 -d '"'
 vim 2_create_new_bacula_client_linux--client_side_template.sh            # And insert "bacula-mon" password    
 ```
-- When everything is ready, run the scripts. Here is an example:
+- When everything is ready, run the scripts to create bacula linux client config files. Here is an example:
 
 ```bash
 ./1_create_new_bacula_client_linux--server_side_template.sh -n srv01 -ip 192.168.155.5
@@ -77,7 +77,7 @@ wget https://raw.githubusercontent.com/johann8/bacularis/master/bacula-dir_templ
 ```
 - To create configuration for Bacula `Windows` client on server side, you need to pass two parameters to script 3, namely `client name` and `IP address`
 - The MD5 Bacula client password is automatically created by the script
-- When everything is ready, run the scripts. Here is an example:
+- When everything is ready, run the scripts to create bacula windows client config files. Here is an example:
 
 ```bash
 ./3_create_new_bacula_client_windows--server_side_template.sh -n win-srv01 -ip 192.168.155.8
