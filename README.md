@@ -113,3 +113,31 @@ As a result comes something like this: `192.168.155.15`
 - Fill in the data as in the picture
 ![Bacula_Windows_Install](https://raw.githubusercontent.com/johann8/bacularis/master/docs/assets/screenshots/bacula_win_install.png)
 - Finish the installation
+- Open the file `C:\Program Files\Bacula\bacula-fd.conf`
+- Find the section
+
+```
+#
+# List Directors who are permitted to contact this File daemon
+#
+Director {
+  Name = bacula-dir
+  Password = "Ck7WxwW8xfew45stslKdXoPGIAk+8QyB07tli92W1XWC"        # Director must know this password
+
+```
+
+- Replace the password with the MD5 password from the client
+
+```
+#
+# List Directors who are permitted to contact this File daemon
+#
+Director {
+  Name = bacula-dir
+  Password = "[md5]607e60c2c1f4f859679fbe9d742b0c59"        # Director must know this password
+
+```
+
+- Restart Windows bacula daemon
+- Windows firewall configuration - unblock ports 9102 and 9103 TCP for incoming rules
+
