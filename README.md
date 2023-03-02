@@ -139,5 +139,5 @@ Director {
 ```
 
 - Restart Windows bacula daemon
-- Windows firewall configuration - unblock ports 9102 and 9103 TCP for incoming rules
+- Windows firewall configuration - unblock ports 9102/TCP and 9103/TCP for incoming rules
 
