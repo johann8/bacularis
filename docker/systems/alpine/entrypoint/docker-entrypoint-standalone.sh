@@ -6,6 +6,8 @@ trap stop SIGTERM SIGINT SIGQUIT SIGHUP ERR
 
 . /docker-entrypoint.inc
 
+# set variables
+PATH_TO_BACULA_DIR="/etc/bacula/bacula-dir.conf"
 
 function start()
 {
@@ -25,10 +27,25 @@ function stop()
     #stop_postgresql
 }
 
-# Change Time Zone
-sed -i "/date.timezone =/c\date.timezone = \"${TZ}\"" /etc/php81/php.ini
+echo ""
+echo "+----------------------------------------------------------+"
+echo "|                                                          |"
+echo "|      Welcome to Bacula CE && Bacularis-APP Docker!       |"
+echo "|                                                          |"
+echo "+----------------------------------------------------------+"
 
-### cintrol bacula config
+echo ""
+echo "+----------------------------------------------------------+"
+echo "|         Starting  Bacularis-APP - Verison ${BACULARIS_VERSION}          |"
+echo "+----------------------------------------------------------+"
+echo ""
+
+# Change Time Zone
+echo -n "Changing PHP time zone...                "
+sed -i "/date.timezone =/c\date.timezone = \"${TZ}\"" /etc/php81/php.ini
+echo "[done]"
+
+### control bacula config
 if [ ! -f /etc/bacula/bacula-config.control ]; then
   tar xzf /bacula-dir.tgz --backup=simple --suffix=.before-control
 
@@ -36,7 +53,7 @@ if [ ! -f /etc/bacula/bacula-config.control ]; then
   if [ ! -z ${SMTP_HOST} ]; then
      # hostname & port 
      echo -n "Setting mail hostname & port...          "
-     sed -i -e "s/-h localhost/-h ${SMTP_HOST}/g" /etc/bacula/bacula-dir.conf
+     sed -i -e "s/-h localhost/-h ${SMTP_HOST}/g" ${PATH_TO_BACULA_DIR}
      echo "[done]"
   fi
 
@@ -44,14 +61,14 @@ if [ ! -f /etc/bacula/bacula-config.control ]; then
   if [ ! -z ${ADMIN_MAIL} ]; then
      echo -n "Setting admin user mail address...       "
      sed -i -e "s/mail = root@localhost/mail = ${ADMIN_MAIL}/g" \
-            -e "s/operator = root@localhost/operator = ${ADMIN_MAIL}/g" /etc/bacula/bacula-dir.conf
+            -e "s/operator = root@localhost/operator = ${ADMIN_MAIL}/g" ${PATH_TO_BACULA_DIR}
      echo "[done]"
   fi
 
   # Change bacula-dir daemon name
   if [ ! -z ${BUILD_DAEMON_NAME} ]; then
      echo -n "Setting daemon names...                  "
-     sed -i "s/${BUILD_DAEMON_NAME}/${DESIRED_DAEMON_NAME}/g" /etc/bacula/bacula-dir.conf
+     sed -i "s/${BUILD_DAEMON_NAME}/${DESIRED_DAEMON_NAME}/g" ${PATH_TO_BACULA_DIR}
      sed -i "s/${BUILD_DAEMON_NAME}/${DESIRED_DAEMON_NAME}/g" /etc/bacula/bacula-fd.conf
      sed -i "s/${BUILD_DAEMON_NAME}/${DESIRED_DAEMON_NAME}/g" /etc/bacula/bacula-sd.conf
      sed -i "s/${BUILD_DAEMON_NAME}/${DESIRED_DAEMON_NAME}/g" /etc/bacula/bconsole.conf
@@ -63,12 +80,12 @@ if [ ! -f /etc/bacula/bacula-config.control ]; then
      # Delete old storage pools
      echo -n "Deleting old storage pools...            "
      sed -i -e '/# Default pool definition/,+10d' \
-       -e '/# File Pool definition/,+11d' /etc/bacula/bacula-dir.conf
+       -e '/# File Pool definition/,+11d' ${PATH_TO_BACULA_DIR}
      echo "[done]"
 
      # Add storage pools: Full, Differential, Incremental
      echo -n "Creating storage pools...                "
-     cat >> /etc/bacula/bacula-dir.conf << 'EOL'
+     cat >> ${PATH_TO_BACULA_DIR} << 'EOL'
 
 Pool {
   Name = "Differential"
@@ -108,35 +125,113 @@ Pool {
 EOL
      echo "[done]"
 
-     #
      # Change docker bacula client
      echo -n "Changing backup job name...              "
      sed -i -e 's/Name = "BackupClient1"/Name = "backup-bacula-fd"/g' \
             -e 's/Pool = File/Pool = "Incremental"/g' \
-            -e 's/Full Set/bacula-fd/g' /etc/bacula/bacula-dir.conf
+            -e 's/Full Set/bacula-fd-fset/g' ${PATH_TO_BACULA_DIR}
      echo "[done]"
 
      echo -n "Changing backup job description...       "     
-     sed -i -e '/  Name = "backup-bacula-fd"/a\  Description = "Backup bacula docker container"' /etc/bacula/bacula-dir.conf
+     sed -i -e '/  Name = "backup-bacula-fd"/a\  Description = "Backup bacula docker container"' ${PATH_TO_BACULA_DIR}
      echo "[done]"
 
      echo -n "Adding storage pools to jobdefs...       "
      sed -i -e '/  Name = "DefaultJob"/a\  DifferentialBackupPool = "Differential"' \
             -e '/  Name = "DefaultJob"/a\  IncrementalBackupPool = "Incremental"' \
-            -e '/  Name = "DefaultJob"/a\  FullBackupPool = "Full"' /etc/bacula/bacula-dir.conf
+            -e '/  Name = "DefaultJob"/a\  FullBackupPool = "Full"' ${PATH_TO_BACULA_DIR}
      echo "[done]"
 
-     echo -n "Adding folder to fileset...              "
-     sed -i -e '/    File = \/usr\/sbin/a\    File = /var/www/bacularis' \
-            -e '/    File = \/usr\/sbin/a\    File = /etc/bacula' /etc/bacula/bacula-dir.conf
+     #echo -n "Adding folder to fileset...              "
+     #sed -i -e '/    File = \/usr\/sbin/a\    File = /var/www/bacularis' \
+     #       -e '/    File = \/usr\/sbin/a\    File = /etc/bacula' ${PATH_TO_BACULA_DIR}
+     #echo "[done]"
+  fi
+
+  # Delete bacula-fd old fileset
+  echo -n "Deleting bacula-fd old fileset...        "
+  sed -i -e '/# List of files to be backed up/,+38d' ${PATH_TO_BACULA_DIR}
+  echo "[done]"
+
+  # Add bacula-fd new fileset
+  echo -n "Creating bacula-fd new fileset...        "
+  cat >> ${PATH_TO_BACULA_DIR} << 'EOL'
+
+Fileset {
+  Name = "bacula-fd-fset"
+  Include {
+    #File = "/usr/sbin"
+    File = "/var/www/bacularis"
+    File = "/etc/bacula"
+    Options {
+      Signature = "Md5"
+      Wild = "*.jpg"
+      Wild = "*.png"
+      Wild = "*.gif"
+      Wild = "*.zip"
+      Wild = "*.rar"
+      Wild = "*.7z"
+      Wild = "*.r??"
+      Wild = "*.mpg"
+      Wild = "*.wmv"
+      Wild = "*.avi"
+      Wild = "*.mov"
+      Wild = "*.mkv"
+      Wild = "*.mp3"
+      Wild = "*.mp4"
+      Wild = "*.gz"
+      Wild = "*.bz2"
+    }
+    Options {
+      Compression = "Lzo"
+      Signature = "Md5"
+    }
+  }
+  Exclude {
+    File = /var/lib/bacula
+    File = /var/lib/bacula/archive
+    File = /proc
+    File = /tmp
+    File = /sys
+    File = /.journal
+    File = /.fsck
+  }
+}
+EOL
+  echo "[done]"
+
+  #
+  #echo -n "Setting bacula config permissions...     "
+  #chown -R bacula:bacula /etc/bacula/*
+  #chown bacula:tape /opt/bacula/archive
+  #chmod -R 775 /etc/bacula/*
+  #echo "[done]"
+
+  # Set bacula-sd ip address
+  if [ ! -z ${DOCKER_HOST_IP} ]; then
+     # Storage File1
+     n1=
+     echo -n "Setting Storage \"File1\" IP address...    "
+     n1=$(cat ${PATH_TO_BACULA_DIR} |grep -niw 'Name = File1' | awk -F: '{ print $1 }')
+     n1=$(($n1+2))
+     sed -i -e "${n1}s+localhost+${DOCKER_HOST_IP}+" ${PATH_TO_BACULA_DIR}
+     echo "[done]"
+
+     # Storage File2
+     echo -n "Setting Storage \"File2\" IP address...    "
+     n2=
+     n2=$(cat ${PATH_TO_BACULA_DIR} |grep -niw 'Name = File2' | awk -F: '{ print $1 }')
+     n2=$(($n2+2))
+     sed -i -e "${n2}s+localhost+${DOCKER_HOST_IP}+" ${PATH_TO_BACULA_DIR}
      echo "[done]"
   fi
+
 
   # Control file
   touch /etc/bacula/bacula-config.control
 fi
 
-### Control bacula storade 
+### Control bacula storage 
 if [ ! -f /var/lib/bacula/bacula-sd.control ]; then
   tar xzf /bacula-sd.tgz --backup=simple --suffix=.before-control
 
@@ -150,7 +245,7 @@ if [ ! -f /var/www/bacularis/protected/Web/Config/bacularis-app.control ]; then
 
    # Add PostgresDB access data into bacula-dir.conf
    echo -n "Setting PostgresDB data to bacula-dir... "
-   sed -i "/dbname = \"/c\  dbname = \"${DB_NAME}\"; dbuser = \"${DB_USER}\"; dbpassword = \"${DB_PASSWORD}\"; dbaddress = \"${DB_HOST}\"; dbport = \"${DB_PORT}\"" /etc/bacula/bacula-dir.conf
+   sed -i "/dbname = \"/c\  dbname = \"${DB_NAME}\"; dbuser = \"${DB_USER}\"; dbpassword = \"${DB_PASSWORD}\"; dbaddress = \"${DB_HOST}\"; dbport = \"${DB_PORT}\"" ${PATH_TO_BACULA_DIR}
    echo "[done]"
 
    # Add PostgresDB access data into api.conf
@@ -240,6 +335,12 @@ if [ "${DB_UPDATE}" == 'true' ] ; then
   echo "Bacula DB update: Grant privileges"
   /etc/bacula/scripts/grant_bacula_privileges  2>/dev/null
 fi
+
+echo ""
+echo "+----------------------------------------------------------+"
+echo "|           Starting  Bacula CE - Verison ${BACULA_VERSION}           |"
+echo "+----------------------------------------------------------+"
+echo ""
 
 # Run services
 start
