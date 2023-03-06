@@ -5,10 +5,10 @@
 #
 
 # Variables
-PROJECT_DIR=/projects/bacularis
+PROJECT_DIR=/projects/bacularis/alpine
 # BACULARIS_VERSION=1.3.0
-BACULARIS_NEW_VERSION=1.4.0
-BACULARIS_OLD_VERSION=1.3.0
+BACULARIS_NEW_VERSION=1.5.0
+BACULARIS_OLD_VERSION=1.4.0
 BACULARIS_VERSION=${BACULARIS_NEW_VERSION}
 PROJECT_URL=https://github.com/bacularis
 EXTERNAL_URL=https://bacularis.app/downloads/bacularis-external-${BACULARIS_VERSION}.tar.gz
@@ -27,7 +27,7 @@ if [[ -d bacularis_${BACULARIS_OLD_VERSION} ]]; then
    mv bacularis_${BACULARIS_OLD_VERSION} bacularis_${BACULARIS_OLD_VERSION}_back
 else
    echo "Can not create backup of old version"
-   exit 0
+   echo "Folder \"bacularis_${BACULARIS_OLD_VERSION}\" does not exists."
 fi
 
 if [[ -d bacularis ]]; then
