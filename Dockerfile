@@ -14,7 +14,9 @@ LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.vcs-url="https://github.com/johann8/" \
       org.label-schema.version=$VERSION
 
-ENV BACULARIS_VERSION=1.3.0
+ENV BACULA_VERSION=13.0.1
+
+ENV BACULARIS_VERSION=1.5.0
 ENV PACKAGE_NAME=standalone
 ENV PHP_VERSION=81
 ENV WEB_USER=nginx
